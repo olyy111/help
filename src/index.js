@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
+import Login from './containers/Login/Login'
+import Register from './containers/Register/Register'
+import './config.js'
 
 const store = createStore(() => {})
 
@@ -15,7 +17,10 @@ ReactDOM.render(
   (
     <Provider store={store}>
       <BrowserRouter>
-        <div>1</div>
+        <div>
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+        </div>
       </BrowserRouter>
     </Provider>
   ),

@@ -1,9 +1,14 @@
 const express = require('express')
 const app = express()
 
-app.get('/', function (req, res) {
+
+
+app.get('/test', function (req, res) {
+  console.log('收到请求了')
   res.send({code: 1, msg: 'hello'})
 })
+
+
 
 
 
