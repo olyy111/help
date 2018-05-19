@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
+const userRouter = require('./user')
 
+app.use('/user', userRouter)
 
 
 app.get('/test', function (req, res) {
