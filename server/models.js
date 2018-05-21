@@ -1,9 +1,7 @@
-import { model } from 'mongoose';
-
 const mongoose = require('mongoose')
 const models = {
   user: {
-    name: {type: String, require: true},
+    user: {type: String, require: true},
     pwd: {type: String, require: true},
     type: {type: String, require: true},
     //头像
@@ -19,11 +17,11 @@ const models = {
 }
 
 for(let m in models){
-  mongoose.models(m, new mongoose.Schema(models[m]))
+  mongoose.model(m, new mongoose.Schema(models[m]))
 }
 
 module.exports = {
   getModel: function (name){
-    return mongoose.models(name)
+    return mongoose.model(name)
   }
 }

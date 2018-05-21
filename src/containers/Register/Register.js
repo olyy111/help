@@ -20,10 +20,6 @@ class Register extends React.Component {
     }
   }
   componentDidMount() {
-    axios.get('/test')
-      .then((res) => {
-          this.setState()
-      })
   }
   handleChange (key, value) {
       this.setState({
