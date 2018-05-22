@@ -7,16 +7,30 @@ const ERROR_MSG = 'ERROR_MSG'
 
 // reducer
 const initState={
+	redirectTo: '',
 	isAuth:false,
 	msg:'',
 	user:'',
-	type:''
+	type:'',
+	code: ''
+}
+
+function getRedirectPath({type, avatar}) {
+	let url = type === 'boss' ? '/boss' : '/genius'
+	if(!avatar){
+		url += 'info'
+	}	
+	return url
 }
 
 export default function user(state = initState, action) {
 	switch(action.type){
 		case REGISTER_SUCCESS:
-			return {...state, isAuth: true, ...action.payload}
+			return {...state, isAuth: true, redirectTo: getRedirectPath(action.payload), ...action.payload}
+		case LOGIN_SUCESS:
+			return {...state, isAuth: true, redirectTo: getRedirectPath(action.payload), ...action.payload}
+		case ERROR_MSG:
+			return {...state, msg: action.msg}
 		default:
 			return state
 	}
@@ -25,6 +39,10 @@ export default function user(state = initState, action) {
 //actions
 function registerSuccess(data) {
 	return { type: REGISTER_SUCCESS, payload: data }
+}
+
+function loginSuccess(data) {
+	return { type: LOGIN_SUCESS, payload: data }
 }
 
 function errorMsg(msg) {
@@ -45,7 +63,13 @@ export function register({user, pwd, type, rePwd}) {
 	return dispatch => {
 		fetchRegister({user, pwd, type})
 			.then((res) => {
-				console.log(res)
+				const {data, msg, code} = res
+				if(code === 0) {
+					dispatch(registerSuccess(data))
+				}else if(code === 1){
+					dispatch(errorMsg(msg))
+				}
+
 			})
 			.catch((err) => {
 				return errorMsg(err)
@@ -60,8 +84,16 @@ export function login({user, pwd}) {
 
 	return dispatch => {
 		fetchLogin({user, pwd})
-			.then(res => {
-				console.log(res)
+			.then((res) => {
+				const {data, msg, code} = res
+				if(code === 0) {
+					dispatch(loginSuccess(data))
+				}else if(code === 1){
+					dispatch(errorMsg(msg))
+				}
+			})
+			.catch((err) => {
+				return errorMsg(err)
 			})
 	}
 }

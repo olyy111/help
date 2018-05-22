@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Route, Redirect } from 'react-router-dom'
-import { fetchUserInfo } from '@/api/user'
 import { isAuth } from '@/utils/cookie'
 
 @withRouter

@@ -1,9 +1,10 @@
 import React from 'react'
-import axios from 'axios'
 import Logo from '@/components/logo/index'
 import { connect } from 'react-redux'
 import { InputItem, WingBlank, Radio, WhiteSpace, Button } from 'antd-mobile'
 import { register } from '@/reducers/user.reducer'
+import { Redirect } from 'react-router-dom'
+import '@/styles/index.css'
 
 @connect(
   state => state.user,
@@ -35,7 +36,11 @@ class Register extends React.Component {
     const RadioItem = Radio.RadioItem
     return  (
       <div>
+        {this.props.redirectTo && <Redirect to={this.props.redirectTo} />}
         <Logo />
+        <WingBlank>
+          <div className="err">{this.props.msg}</div>
+        </WingBlank>
         <WingBlank>
           <InputItem 
             placeholder="请输入用户名"
@@ -43,10 +48,12 @@ class Register extends React.Component {
           >用户名</InputItem>
           <InputItem
             placeholder="请输入密码"
+            type="password"
             onChange={v=>this.handleChange('pwd', v)}
           >密码</InputItem>
           <InputItem
             placeholder="请再次输入密码"
+            type="password"
             onChange={v=>this.handleChange('rePwd', v)}
           >确认密码</InputItem>
           <WhiteSpace></WhiteSpace>
