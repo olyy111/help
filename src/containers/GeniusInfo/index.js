@@ -14,12 +14,11 @@ export default class extends React.Component {
         super(props)
         this.state = {
             title: '',
-            company: '',
-            money: '',
             desc: '',
             avatar: ''
         }
     }
+
     handleChange(key, value) {
         this.setState({ [key]: value })
     }
@@ -34,20 +33,15 @@ export default class extends React.Component {
                     avatar={this.state.avatar}
                 ></AvatarSelector>
                 <InputItem 
-                    onChange={ v => this.handleChange('company', v)
+                    onChange={ v => this.handleChange('title', v)
 
-                }>招聘公司</InputItem>
-                <InputItem 
-                    onChange={ v => this.handleChange('title', v) }
-                >招聘职位</InputItem>
-                <InputItem 
-                    onChange={ v => this.handleChange('money', v) }
-                >岗位薪资</InputItem>
+                }>求职意向</InputItem>
                 <TextareaItem
-                    title="岗位介绍"
+                    title="自我介绍"
                     placeholder="auto focus in Alipay client"
                     onChange={ v => this.handleChange('desc', v)}
                     rows="4"
+                    autoHeight
                 />
                 <Button type="primary" onClick={() => this.props.update(this.state)}>保存</Button>
             </div>

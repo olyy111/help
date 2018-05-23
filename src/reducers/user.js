@@ -1,47 +1,55 @@
-import { fetchRegister, fetchLogin } from '@/api/user'
+import { fetchRegister, fetchLogin, fetchUserUpdate } from '@/api/user'
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
-const LOGIN_SUCESS = 'LOGIN_SUCESS'
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
+const UPDATE_SUCCESS = 'UPDATE_SUCCESS'
 
 
 // reducer
-const initState={
+const initState = {
 	redirectTo: '',
-	isAuth:false,
-	msg:'',
-	user:'',
-	type:'',
+	isAuth: false,
+	msg: '',
+	user: '',
+	type: '',
 	code: ''
 }
 
-function getRedirectPath({type, avatar}) {
+function getRedirectPath({ type, avatar }) {
 	let url = type === 'boss' ? '/boss' : '/genius'
-	if(!avatar){
+	if (!avatar) {
 		url += 'info'
-	}	
+	}
 	return url
 }
 
 export default function user(state = initState, action) {
-	switch(action.type){
+	switch (action.type) {
 		case REGISTER_SUCCESS:
-			return {...state, isAuth: true, redirectTo: getRedirectPath(action.payload), ...action.payload}
-		case LOGIN_SUCESS:
-			return {...state, isAuth: true, redirectTo: getRedirectPath(action.payload), ...action.payload}
+			return { ...state, isAuth: true, redirectTo: getRedirectPath(action.payload), ...action.payload }
+		case LOGIN_SUCCESS:
+			return { ...state, isAuth: true, redirectTo: getRedirectPath(action.payload), ...action.payload }
+		case UPDATE_SUCCESS:
+			return { ...state, redirectTo: getRedirectPath(action.payload), ...action.payload }
 		case ERROR_MSG:
-			return {...state, msg: action.msg}
+			return { ...state, msg: action.msg }
 		default:
 			return state
 	}
 }
 
-//actions
+//actions creators
 function registerSuccess(data) {
 	return { type: REGISTER_SUCCESS, payload: data }
 }
 
 function loginSuccess(data) {
-	return { type: LOGIN_SUCESS, payload: data }
+	return { type: LOGIN_SUCCESS, payload: data }
+}
+
+function updateSuccess(data) {
+	const { pwd, ...rest } = data
+	return { type: UPDATE_SUCCESS, payload: rest }
 }
 
 function errorMsg(msg) {
@@ -50,22 +58,24 @@ function errorMsg(msg) {
 
 
 
-export function register({user, pwd, type, rePwd}) {
-	if(!user || !pwd || !type){
+
+
+export function register({ user, pwd, type, rePwd }) {
+	if (!user || !pwd || !type) {
 		return errorMsg('用户名或者密码不能为空')
 	}
 
-	if(pwd !== rePwd){
+	if (pwd !== rePwd) {
 		return errorMsg('两次输入的密码应该一直')
 	}
 
 	return dispatch => {
-		fetchRegister({user, pwd, type})
+		fetchRegister({ user, pwd, type })
 			.then((res) => {
-				const {data, msg, code} = res
-				if(code === 0) {
+				const { data, msg, code } = res
+				if (code === 0) {
 					dispatch(registerSuccess(data))
-				}else if(code === 1){
+				} else if (code === 1) {
 					dispatch(errorMsg(msg))
 				}
 
@@ -76,18 +86,36 @@ export function register({user, pwd, type, rePwd}) {
 	}
 }
 
-export function login({user, pwd}) {
-	if(!user || !pwd){
+export function login({ user, pwd }) {
+	if (!user || !pwd) {
 		return errorMsg('用户名或者密码不能为空')
 	}
 
 	return dispatch => {
-		fetchLogin({user, pwd})
+		fetchLogin({ user, pwd })
 			.then((res) => {
-				const {data, msg, code} = res
-				if(code === 0) {
+				const { data, msg, code } = res
+				if (code === 0) {
 					dispatch(loginSuccess(data))
-				}else if(code === 1){
+				} else if (code === 1) {
+					dispatch(errorMsg(msg))
+				}
+			})
+			.catch((err) => {
+				return errorMsg(err)
+			})
+	}
+}
+
+export function update(params) {
+
+	return dispatch => {
+		fetchUserUpdate(params)
+			.then((res) => {
+				const { data, msg, code } = res
+				if (code === 0) {
+					dispatch(updateSuccess(data))
+				} else if (code === 1) {
 					dispatch(errorMsg(msg))
 				}
 			})
