@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { fetchRegister, fetchLogin } from '@/api/user'
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 const LOGIN_SUCESS = 'LOGIN_SUCESS'

@@ -1,4 +1,4 @@
-import user from './user.reducer.js'
+import user from './user'
 import { combineReducers } from "redux";
 
 

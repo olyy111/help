@@ -2,7 +2,7 @@ import React from 'react'
 import Logo from '@/components/logo/index'
 import { connect } from 'react-redux'
 import { InputItem, WingBlank, Radio, WhiteSpace, Button } from 'antd-mobile'
-import { register } from '@/reducers/user.reducer'
+import { register } from '@/reducers/user'
 import { Redirect } from 'react-router-dom'
 import '@/styles/index.css'
 
