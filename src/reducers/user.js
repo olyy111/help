@@ -1,9 +1,9 @@
-import { fetchRegister, fetchLogin, fetchUserUpdate } from '@/api/user'
+import { fetchRegister, fetchLogin, fetchUserUpdate, fetchUserList, fetchUserInfo } from '@/api/user'
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
 const UPDATE_SUCCESS = 'UPDATE_SUCCESS'
-
+const UPDATE_USERINFO_SUCCESS = 'UPDATE_USERINFO_SUCCESS'
 
 // reducer
 const initState = {
@@ -31,6 +31,8 @@ export default function user(state = initState, action) {
 			return { ...state, isAuth: true, redirectTo: getRedirectPath(action.payload), ...action.payload }
 		case UPDATE_SUCCESS:
 			return { ...state, redirectTo: getRedirectPath(action.payload), ...action.payload }
+		case UPDATE_USERINFO_SUCCESS:	
+			return { ...state, ...action.payload }
 		case ERROR_MSG:
 			return { ...state, msg: action.msg }
 		default:
@@ -52,13 +54,13 @@ function updateSuccess(data) {
 	return { type: UPDATE_SUCCESS, payload: rest }
 }
 
+function updateUserInfo(data) {
+	return {type: UPDATE_USERINFO_SUCCESS, payload: data}
+}
+
 function errorMsg(msg) {
 	return { type: ERROR_MSG, msg }
 }
-
-
-
-
 
 export function register({ user, pwd, type, rePwd }) {
 	if (!user || !pwd || !type) {
@@ -115,6 +117,24 @@ export function update(params) {
 				const { data, msg, code } = res
 				if (code === 0) {
 					dispatch(updateSuccess(data))
+				} else if (code === 1) {
+					dispatch(errorMsg(msg))
+				}
+			})
+			.catch((err) => {
+				return errorMsg(err)
+			})
+	}
+}
+
+export function getUserInfo(params) {
+
+	return dispatch => {
+		fetchUserInfo(params)
+			.then((res) => {
+				const { data, msg, code } = res
+				if (code === 0) {
+					dispatch(updateUserInfo(data))
 				} else if (code === 1) {
 					dispatch(errorMsg(msg))
 				}

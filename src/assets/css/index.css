@@ -1,0 +1,24 @@
+.err {
+    color: red;
+}
+
+.am-tab-bar{
+	position: fixed;
+	bottom: 0;
+	height: 50px;
+	width: 100%;
+}
+
+.fixed-header.am-navbar{
+	z-index: 100;
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+.page-content{
+	padding:45px 5px;
+}
+
+.content-wrapper{
+	padding: 45px 0 50px;
+}

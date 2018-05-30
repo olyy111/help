@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { login } from '@/reducers/user'
 import { InputItem, WingBlank, Radio, WhiteSpace, Button } from 'antd-mobile'
 import { Redirect } from 'react-router-dom'
-import '@/styles/index.css'
+
 
 @connect(
   state => state.user,
