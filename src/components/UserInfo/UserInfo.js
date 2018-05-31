@@ -16,6 +16,7 @@ export default class extends React.Component {
   componentDidMount(){
     const whiteList = ['/login', 'register']
     const pathname = this.props.location.pathname
+
     if(whiteList.indexOf(pathname) > -1){
       return null
     }

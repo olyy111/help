@@ -1,14 +1,5 @@
-import React from 'react'
-import { withRouter } from 'react-router-dom'
+import createHistory from 'history/createBrowserHistory'
 
-let history;
-@withRouter
-export class Hack extends React.Component {
-  componentDidMount() {
-    history = this.prop.history
-  }
-  render(){
-    return null
-  }
-}
+const history = createHistory()
+
 export default history

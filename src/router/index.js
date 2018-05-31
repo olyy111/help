@@ -5,23 +5,24 @@ import BossInfo from '@/containers/BossInfo/index'
 import GeniusInfo from '@/containers/GeniusInfo/index'
 import AuthRoute from '@/components/authRoute'
 import Dashboard from '@/components/dashboard'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Router } from 'react-router-dom'
 import UserInfo from '@/components/UserInfo/UserInfo'
+import history from '@/utils/history'
 
 export default function () {
     return (
-        <BrowserRouter>
+        <Router history={history}>
             <div>
                 <UserInfo></UserInfo>
                 <Switch>
-                    <Route path="/bossinfo" component={BossInfo} />
+                    <AuthRoute path="/bossinfo" component={BossInfo} />
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={Register} />
-                    <Route path="/geniusInfo" component={GeniusInfo} />
-                    <Route component={Dashboard} />
+                    <AuthRoute path="/geniusInfo" component={GeniusInfo} />
+                    <AuthRoute component={Dashboard} />
                 </Switch>
             </div>
-        </BrowserRouter>
+        </Router>
     )
 } 
 

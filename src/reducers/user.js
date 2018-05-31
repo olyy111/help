@@ -3,6 +3,7 @@ const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
 const UPDATE_SUCCESS = 'UPDATE_SUCCESS'
+const LOGOUT = 'LOGOUT'
 const UPDATE_USERINFO_SUCCESS = 'UPDATE_USERINFO_SUCCESS'
 
 // reducer
@@ -31,6 +32,8 @@ export default function user(state = initState, action) {
 			return { ...state, isAuth: true, redirectTo: getRedirectPath(action.payload), ...action.payload }
 		case UPDATE_SUCCESS:
 			return { ...state, redirectTo: getRedirectPath(action.payload), ...action.payload }
+		case LOGOUT:
+			return initState
 		case UPDATE_USERINFO_SUCCESS:	
 			return { ...state, ...action.payload }
 		case ERROR_MSG:
@@ -52,6 +55,10 @@ function loginSuccess(data) {
 function updateSuccess(data) {
 	const { pwd, ...rest } = data
 	return { type: UPDATE_SUCCESS, payload: rest }
+}
+
+export function logout(){
+	return { type: LOGOUT }
 }
 
 function updateUserInfo(data) {

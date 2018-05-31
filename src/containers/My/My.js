@@ -1,9 +1,14 @@
 import React from 'react'
 import { Result, List, WhiteSpace, WingBlank } from 'antd-mobile'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import Cookie from 'js-cookie'
+import { logout } from '@/reducers/user'
+
+@withRouter
 @connect(
-  state => state.user
+  state => state.user,
+  { logout }
 )
 export default class extends React.Component {
 
@@ -11,8 +16,9 @@ export default class extends React.Component {
     super(props)
   }
   handleLogout = () => {
-    console.log('logout')
     Cookie.remove('userid')
+    this.props.logout()
+    this.props.history.push('/login')
   }
   render() {
     const Item = List.Item

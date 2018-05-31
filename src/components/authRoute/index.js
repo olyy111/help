@@ -1,18 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { withRouter, Route, Redirect } from 'react-router-dom'
-import { isAuth } from '@/utils/cookie'
+import { Route, Redirect } from 'react-router-dom'
+import Cookie from 'js-cookie'
 
-@withRouter
 @connect(
   state => state.user
 )
 class AuthRoute extends React.Component {
+  isAuth() {
+    return !!Cookie.get('userid')
+  }
   render() {
     const {component, ...rest} = this.props
     const Component = component
     return <Route {...rest} render={() => (
-      isAuth() ?
+      this.isAuth() ?
         <Component /> :
         <Redirect to="/login" />
     )} />

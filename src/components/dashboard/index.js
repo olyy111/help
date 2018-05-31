@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavBar } from 'antd-mobile'
 import { connect } from 'react-redux'
-import { Route } from 'react-router'
+import { Route, withRouter } from 'react-router-dom'
 import NavLink from '@/components/navLink/index'
 import Boss from '@/containers/Boss/Boss'
 import My from '@/containers/My/My'
@@ -15,9 +15,9 @@ function Genius(){
 	return <h2>牛人页面</h2>
 }
 
+@withRouter
 @connect(
-    state => state,
-    {  }
+	state => state
 )
 export default class extends React.Component {
     render() {

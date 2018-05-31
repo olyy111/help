@@ -8,7 +8,6 @@ import Router from './router/index'
 import reducers from './reducers/index'
 import './config.js'
 import './assets/css/index.css'
-import { Hack } from '@/utils/history'
 
 
 const store = createStore(reducers, compose(
@@ -21,7 +20,6 @@ ReactDOM.render(
   (
     <Provider store={store}>
       <Router>
-        <Hack></Hack>
       </Router>
     </Provider>
   ),
