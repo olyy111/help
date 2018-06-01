@@ -1,4 +1,5 @@
 import { fetchRegister, fetchLogin, fetchUserUpdate, fetchUserList, fetchUserInfo } from '@/api/user'
+import { startLoad, endLoad } from './load'
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
@@ -137,8 +138,10 @@ export function update(params) {
 export function getUserInfo(params) {
 
 	return dispatch => {
+		dispatch(startLoad())
 		fetchUserInfo(params)
 			.then((res) => {
+				dispatch(endLoad())
 				const { data, msg, code } = res
 				if (code === 0) {
 					dispatch(updateUserInfo(data))

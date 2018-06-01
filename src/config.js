@@ -1,7 +1,7 @@
 import axios from 'axios'
+import Cookie from 'js-cookie'
 import { Toast } from 'antd-mobile';
 import history from '@/utils/history'
-
 
 axios.interceptors.request.use(function (config) {
   return config;
@@ -14,6 +14,7 @@ axios.interceptors.response.use(function (response) {
   const res = response.data
   if(res.code == 3){
     history.push('/login')
+    Cookie.remove('userid')
   }
   return res
 }, function (err) {

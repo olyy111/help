@@ -22,7 +22,10 @@ export function getUserList(params) {
 	return dispatch => {
 		fetchUserList(params)
 			.then(res => {
-				dispatch(userList(res.data))
+        if(res.code === 0){
+
+          dispatch(userList(res.data))
+        }
 			})
 	}
 }

@@ -37,3 +37,5 @@ typings/
 
 # editor
 .vscode/
+
+.DS_Store

@@ -22,3 +22,13 @@
 .content-wrapper{
 	padding: 45px 0 50px;
 }
+
+.loading {
+	position: fixed;
+	z-index: 50;
+	width: 100%;
+	top: 45px;
+	bottom: 50px;
+	background: #fff url(../imgs/loading.gif) center center no-repeat;
+	background-size: 30px 30px;
+}

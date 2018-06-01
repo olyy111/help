@@ -62,7 +62,9 @@ export default class extends React.Component {
                     {navList.map(v => {
 						return !v.hide && <Route path={v.path} component={v.component} />
 					})}
-                </div>
+				</div>
+				<div className="loading" style={{display: this.props.isLoad?'block':'none'}}>
+				</div>
                 <NavLink data={navList}></NavLink> 
             </div>
         )

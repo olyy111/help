@@ -67,19 +67,21 @@ router.post('/login', function (req, res) {
 
 router.get('/info', function (req, res) {
   const { userid } = req.cookies
+  setTimeout(function (){
 
-  // 
-  if(!userid){
-    return res.json({code: 3})
-  } 
-
-  ;(async () => {
-    const doc = await User.findOne({_id: userid})
-    if(!doc){
-      return res.json({code: 3, msg: '请求异常'})
-    }
-    return res.json({code: 0, data: doc})
-  })()
+    // 
+    if(!userid){
+      return res.json({code: 3})
+    } 
+  
+    ;(async () => {
+      const doc = await User.findOne({_id: userid})
+      if(!doc){
+        return res.json({code: 3, msg: '请求异常'})
+      }
+      return res.json({code: 0, data: doc})
+    })()
+  },1000)
 })
 
 const md5 = (str) => {
