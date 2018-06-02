@@ -12,7 +12,7 @@ axios.interceptors.request.use(function (config) {
 
 axios.interceptors.response.use(function (response) {
   const res = response.data
-  if(res.code == 3){
+  if(res.code === 3){
     history.push('/login')
     Cookie.remove('userid')
   }

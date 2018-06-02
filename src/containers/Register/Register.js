@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '@/components/logo/index'
+import Logo from '@/components/Logo/Logo'
 import { connect } from 'react-redux'
 import { InputItem, WingBlank, Radio, WhiteSpace, Button } from 'antd-mobile'
 import { register } from '@/reducers/user'

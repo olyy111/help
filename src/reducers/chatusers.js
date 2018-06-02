@@ -14,7 +14,6 @@ export default function(state = [], action) {
 //action creators
 
 function userList(data) {
-  console.log(data)
   return {type: USER_LIST, payload: data}
 }
 

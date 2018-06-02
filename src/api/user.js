@@ -1,5 +1,4 @@
 import axios from 'axios'
-import qs from 'qs'
 
 export function fetchRegister (params) {
   return axios.post('/user/register', params)

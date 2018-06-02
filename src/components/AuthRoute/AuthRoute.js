@@ -8,11 +8,9 @@ import Cookie from 'js-cookie'
 )
 class AuthRoute extends React.Component {
   isAuth() {
-    console.log('hehehehehhehehe')
     return !!Cookie.get('userid')
   }
   render() {
-    console.log(23333333)
     const {component, ...rest} = this.props
     const Component = component
     return <Route {...rest} render={() => (

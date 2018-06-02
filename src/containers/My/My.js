@@ -1,5 +1,5 @@
 import React from 'react'
-import { Result, List, WhiteSpace, WingBlank } from 'antd-mobile'
+import { Result, List, WhiteSpace } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import Cookie from 'js-cookie'
@@ -11,10 +11,6 @@ import { logout } from '@/reducers/user'
   { logout }
 )
 export default class extends React.Component {
-
-  constructor(props){
-    super(props)
-  }
   handleLogout = () => {
     Cookie.remove('userid')
     this.props.logout()
@@ -41,7 +37,7 @@ export default class extends React.Component {
             <Item>
               <Brief>
                 {this.props.desc && this.props.desc.split('\n').map(item => (
-                  <div>{item}</div>
+                  <div key={item}>{item}</div>
                 ))}
                 {this.props.money && <div>{this.props.money}</div>}
               </Brief>

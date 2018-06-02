@@ -2,7 +2,7 @@ import React from 'react'
 import { NavBar } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { Route, withRouter } from 'react-router-dom'
-import NavLink from '@/components/navLink/index'
+import NavLink from '@/components/NavLink/NavLink'
 import Boss from '@/containers/Boss/Boss'
 import My from '@/containers/My/My'
 
@@ -29,7 +29,7 @@ export default class extends React.Component {
 				icon:'boss',
 				title:'牛人列表',
 				component:Boss,
-				hide:user.type=='genius'
+				hide:user.type==='genius'
 			},
 			{
 				path:'/genius',
@@ -37,7 +37,7 @@ export default class extends React.Component {
 				icon:'job',
 				title:'BOSS列表',
 				component:Genius,
-				hide:user.type=='boss'
+				hide:user.type==='boss'
 			},
 			{
 				path:'/msg',
@@ -55,13 +55,14 @@ export default class extends React.Component {
 			}
         ]
 		const pathname = this.props.location.pathname
+		const filteredList = navList.filter(item => !item.hide)
         return (
             <div>
-                <NavBar className="fixed-header">{navList.find(v => pathname === v.path).title}</NavBar>
+                <NavBar className="fixed-header">{filteredList.find(v => pathname === v.path).title}</NavBar>
                 <div className="content-wrapper">
-                    {navList.map(v => {
-						return !v.hide && <Route path={v.path} component={v.component} />
-					})}
+                    {filteredList.map(v => (
+						<Route key={v.path} path={v.path} component={v.component} />
+					))}
 				</div>
 				<div className="loading" style={{display: this.props.isLoad?'block':'none'}}>
 				</div>

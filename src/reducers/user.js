@@ -1,4 +1,4 @@
-import { fetchRegister, fetchLogin, fetchUserUpdate, fetchUserList, fetchUserInfo } from '@/api/user'
+import { fetchRegister, fetchLogin, fetchUserUpdate, fetchUserInfo } from '@/api/user'
 import { startLoad, endLoad } from './load'
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'

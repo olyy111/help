@@ -13,14 +13,13 @@ export default class extends React.Component {
     }
     render() {
         const list = this.props.chatusers
-        console.log(list)
         return (
             <div>
                 <WhiteSpace></WhiteSpace>
                 <WingBlank>
                     {list.map(item => (
-                        <div>
-                            <Card key={item._id}>
+                        <div key={item._id}>
+                            <Card>
                                 <Card.Header
                                     thumb={require(`../../assets/imgs/avatars/${item.avatar}.png`)}
                                     title={item.user}
