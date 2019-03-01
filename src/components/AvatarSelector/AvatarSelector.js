@@ -18,7 +18,7 @@ export default class extends React.Component {
         const data = imgStr.split(',').map(v => ({ icon: require(`../../assets/imgs/avatars/${v}.png`), text: v }))
         
         const Header = this.props.avatar
-                        ? <div>已经选择头像<img src={require(`../../assets/imgs/${this.props.avatar}.png`)} alt="头像" /></div>
+                        ? <div>已经选择头像<img src={require(`../../assets/imgs/avatars/${this.props.avatar}.png`)} alt="头像" /></div>
                         : <div>还没有选择头像</div>
                         
         return (

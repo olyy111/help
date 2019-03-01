@@ -56,9 +56,10 @@ export default class extends React.Component {
         ]
 		const pathname = this.props.location.pathname
 		const filteredList = navList.filter(item => !item.hide)
+		const selectedRoute = filteredList.find(v => pathname === v.path)
         return (
             <div>
-                <NavBar className="fixed-header">{filteredList.find(v => pathname === v.path).title}</NavBar>
+                <NavBar className="fixed-header">{selectedRoute && selectedRoute.title}</NavBar>
                 <div className="content-wrapper">
                     {filteredList.map(v => (
 						<Route key={v.path} path={v.path} component={v.component} />
