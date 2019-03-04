@@ -5,14 +5,11 @@ import { Route, withRouter } from 'react-router-dom'
 import NavLink from '@/components/NavLink/NavLink'
 import Boss from '@/containers/Boss/Boss'
 import My from '@/containers/My/My'
-
+import GeniusList from '@/components/GeniusList/GeniusList'
+import BossList from '@/components/BossList/BossList'
 
 function Msg(){
 	return <h2>消息列表页面</h2>
-}
-
-function Genius(){
-	return <h2>牛人页面</h2>
 }
 
 @withRouter
@@ -25,19 +22,19 @@ export default class extends React.Component {
         const navList = [
 			{
 				path:'/boss',
-				text:'牛人',
-				icon:'boss',
-				title:'牛人列表',
-				component:Boss,
-				hide:user.type==='genius'
+				text:'Boss',
+				icon:'job',
+				title:'Boss列表',
+				component:BossList,
+				hide:user.type === 'boss'
 			},
 			{
 				path:'/genius',
-				text:'boss',
+				text:'牛人',
 				icon:'job',
-				title:'BOSS列表',
-				component:Genius,
-				hide:user.type==='boss'
+				title:'牛人列表',
+				component: GeniusList,
+				hide:user.type === 'genius'
 			},
 			{
 				path:'/msg',

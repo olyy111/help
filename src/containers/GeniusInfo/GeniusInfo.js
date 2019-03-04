@@ -1,14 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
-import { NavBar, InputItem, TextareaItem, Button } from 'antd-mobile'
+import { NavBar, InputItem, TextareaItem, Button, Form } from 'antd-mobile'
 import AvatarSelector from '@/components/AvatarSelector/AvatarSelector'
 import { update } from '@/reducers/user'
+import { createForm, formShape } from 'rc-form';
 
 @connect(
     state => state.user,
     { update }
 )
+@createForm()
 export default class extends React.Component {
     constructor(props){
         super(props)
@@ -34,7 +36,6 @@ export default class extends React.Component {
                 ></AvatarSelector>
                 <InputItem 
                     onChange={ v => this.handleChange('title', v)
-
                 }>求职意向</InputItem>
                 <TextareaItem
                     title="自我介绍"
