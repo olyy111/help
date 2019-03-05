@@ -14,7 +14,6 @@ export default class extends React.Component {
     this.props.getUserList({ type: 'boss' })
   }
   render() {
-    console.log(this.props)
     return <UserCard userlist={this.props.chatusers}></UserCard>
   }
 }

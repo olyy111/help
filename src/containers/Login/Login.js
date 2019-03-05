@@ -4,13 +4,14 @@ import { connect } from 'react-redux'
 import { login } from '@/reducers/user'
 import { InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile'
 import { Redirect } from 'react-router-dom'
-import form from '@/utils/form'
+import Form from '@/components/Form/Form'
+
 
 @connect(
   state => state.user,
   { login }
 )
-@form
+@Form
 class Login extends React.Component {
   constructor(props) {
     super(props)

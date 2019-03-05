@@ -4,8 +4,12 @@ const bodyParse = require('body-parser')
 const mongoose = require('mongoose')
 const userRouter = require('./user')
 const { getModel } = require('./models')
-const app = express()
 const User = getModel('user')
+
+const app = express()
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
 
 const DB_URL = 'mongodb://localhost:27017/help'
 mongoose.connect(DB_URL)
@@ -13,7 +17,7 @@ mongoose.connection.on('connected', function () {
   console.log('mongodb connect successfully')
 })
 
-let a = 0
+
 app.use(cookieParse())
 app.use(function (req, res, next) {
   const userid = req.cookies.userid
@@ -42,7 +46,10 @@ app.use(bodyParse.json())
 
 app.use('/user', userRouter)
 
+io.on('connection', function (socket) {
+  console.log('hello, welcome to socket.io')
+})
 
-app.listen('9999', function () {
+server.listen('9999', function () {
   console.log('服务启动起来了')
 })
