@@ -7,7 +7,7 @@ const { getModel } = require('./models')
 const User = getModel('user')
 
 const app = express()
-const server = require('http').createServer(app);
+const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
 
