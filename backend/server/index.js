@@ -8,7 +8,13 @@ const User = getModel('user')
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-io.on('connection', () => { console.log('come ') });
+io.on('connection', socket => { 
+  console.log('user login')
+  socket.on('sendmsg', data => {
+    console.log(data)
+  })
+});
+
 server.listen('9999', function () {
   console.log('node服务起在9999端口')
 })
