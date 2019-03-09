@@ -1,4 +1,3 @@
-const express = require('express')
 const cookieParse = require('cookie-parser')
 const bodyParse = require('body-parser')
 const mongoose = require('mongoose')
@@ -6,10 +5,13 @@ const userRouter = require('./user')
 const { getModel } = require('./models')
 const User = getModel('user')
 
-const app = express()
-const server = require('http').Server(app);
+const app = require('express')();
+const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-
+io.on('connection', () => { console.log('come ') });
+server.listen('9999', function () {
+  console.log('node服务起在9999端口')
+})
 
 const DB_URL = 'mongodb://localhost:27017/help'
 mongoose.connect(DB_URL)
@@ -46,10 +48,4 @@ app.use(bodyParse.json())
 
 app.use('/user', userRouter)
 
-io.on('connection', function (socket) {
-  console.log('hello, welcome to socket.io')
-})
 
-server.listen('9999', function () {
-  console.log('服务启动起来了')
-})
