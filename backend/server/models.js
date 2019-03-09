@@ -14,6 +14,13 @@ const models = {
 		// 如果你是boss 还有两个字段
 		'company':{'type':String},
 		'money':{'type':String}
+  },
+  chat: {
+    'chatInfo': {'type': String, required: true},
+    'from': {'type': String, require: true},
+    'to': {'type': String, require: true},
+    'createTime': {'type': Number, default: +new Date()},
+    'read': {'type': Number, require: true}
   }
 }
 

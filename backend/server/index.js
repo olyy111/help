@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const userRouter = require('./user')
 const { getModel } = require('./models')
 const User = getModel('user')
+const Chat = getModel('chat')
 
 const app = require('express')();
 const server = require('http').createServer(app);
@@ -11,7 +12,7 @@ const io = require('socket.io')(server);
 io.on('connection', socket => { 
   console.log('user login')
   socket.on('sendmsg', data => {
-    console.log(data)
+    io.emit('receivemsg', data)
   })
 });
 

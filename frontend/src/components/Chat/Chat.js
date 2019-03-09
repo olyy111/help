@@ -8,20 +8,24 @@ const socket = io(`ws://${window.location.hostname}:9999`)
 export default class extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {text: ''}
+    this.state = {text: '', msg: []}
   }
-  // componentDidMount() {
-  //   const socket = io(`ws://${window.location.hostname}:9999`)
-  //   socket.emit('sendmsg', {text: 123})
-  // }
+  componentDidMount() {
+    socket.on('receivemsg', data => {
+      this.setState({msg: [...this.state.msg, data]})
+    })
+  }
   handleSendMsg = () => {
-    // console.log(socket)
+    console.log(this.state.text)
     socket.emit('sendmsg', this.state.text)
   }
   render() {
     {this.props.match.params.user}
     return (
       <div>
+        {this.state.msg.map(item => {
+          return <p key={item}>{item}</p>
+        })}
         <InputItem 
           className="stick-footer"
           value={this.state.text}
