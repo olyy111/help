@@ -13,7 +13,9 @@ const initalData = {
 export default function (state = initalData, action) {
     switch(action.type) {
         case MSG_LIST:
+            return {...state, msg: action.payload}
         case MSG_RECEIVE:
+            return {...state, msg: [...state.msg, action.payload]}
         case MSG_READ:
         default:
             return state
@@ -23,12 +25,30 @@ export default function (state = initalData, action) {
 function msgList(payload) {
     return {type: MSG_LIST, payload}
 }
+function receive(payload) {
+    return {type: MSG_RECEIVE, payload}
+}
+
+export function receiveMsg() {
+    return dispatch => {
+        socket.on('receiveMsg', data => {
+            dispatch(receive(data))
+        })
+    }
+}
+
+export function sendMsg(data) {
+    return diapatch => {
+        socket.emit('sendMsg', data)
+    }
+}
 
 export function getChatMsgList() {
     return dispatch => {
         fetchChatMsgList()
             .then(res => {
-                dispatch(msgList(re))
+                console.log(res)
+                // dispatch(msgList(re))
             })
     }
 }

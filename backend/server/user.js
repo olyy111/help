@@ -3,6 +3,7 @@ const router = express.Router()
 const model = require('./models.js')
 const User = model.getModel('user')
 const utils = require('utility')
+const Chat = model.getModel('chat')
 
 router.post('/update', function (req, res) {
   const body = req.body
@@ -49,6 +50,18 @@ router.get('/list', function (req, res) {
   ;(async () => {
     const list = await User.find({ type })
     return res.json({code: 0, data: list, msg: '获取列表成功'})
+  })()
+})
+
+router.get('/chatMsgList', function (req, res) {
+  const { userid } = req.cookies
+  ;(async() => {
+    const rs = await Chat.find({})
+    if (rs) {
+      return res.json({data: rs, code: 0})
+    } {
+      return res.json({code: 3, msg: '没有找到列表'})
+    }
   })()
 })
 

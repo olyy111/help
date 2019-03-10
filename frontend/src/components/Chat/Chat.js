@@ -1,9 +1,13 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {InputItem, Button} from 'antd-mobile'
-import io from 'socket.io-client'
-const socket = io(`ws://${window.location.hostname}:9999`)
+import {getChatMsgList, receiveMsg, sendMsg} from '@/reducers/chat'
+import {connect} from 'react-redux'
 
+@connect(
+  state => state,
+  {getChatMsgList, receiveMsg, sendMsg}
+)
 @withRouter
 export default class extends React.Component {
   constructor(props) {
@@ -11,13 +15,20 @@ export default class extends React.Component {
     this.state = {text: '', msg: []}
   }
   componentDidMount() {
-    socket.on('receivemsg', data => {
-      this.setState({msg: [...this.state.msg, data]})
-    })
+    // socket.on('receivemsg', data => {
+    //   this.setState({msg: [...this.state.msg, data]})
+    // })
+    this.props.getChatMsgList()
+    this.props.receiveMsg()
   }
   handleSendMsg = () => {
     console.log(this.state.text)
-    socket.emit('sendmsg', this.state.text)
+    // socket.emit('sendmsg', this.state.text)
+    const from = this.props.user._id
+    const to = this.props.match.params.user
+    const content = this.state.text
+    this.props.sendMsg({from, to, content})
+    this.setState({text: 0})
   }
   render() {
     {this.props.match.params.user}

@@ -19,3 +19,7 @@ export function fetchUserList(params) {
 export function fetchUserInfo(params) {
   return axios.get('/user/info', { params })
 }
+
+export function fetchChatMsgList(params) {
+  return axios.get('/user/chatMsgList', { params })
+}

@@ -16,11 +16,12 @@ const models = {
 		'money':{'type':String}
   },
   chat: {
-    'chatInfo': {'type': String, required: true},
+    'chatId': {'type': String, required: true},
     'from': {'type': String, require: true},
     'to': {'type': String, require: true},
+    'content': {type: String, require: true, default: ''},
     'createTime': {'type': Number, default: +new Date()},
-    'read': {'type': Number, require: true}
+    'read': {'type': Boolean, default: false}
   }
 }
 
