@@ -56,12 +56,13 @@ router.get('/list', function (req, res) {
 router.get('/chatMsgList', function (req, res) {
   const { userid } = req.cookies
   ;(async() => {
-    const rs = await Chat.find({})
-    if (rs) {
-      return res.json({data: rs, code: 0})
-    } {
-      return res.json({code: 3, msg: '没有找到列表'})
-    }
+    const usersRs = await User.find({})
+    const users = {}
+    usersRs.forEach(user => {
+      users[user._id] = {name: user.user, avatar: user.avatar}
+    })
+    const msgList = await Chat.find({'$or': [{to: userid}, {from: userid}]})
+    return res.json({data: {msgList, users}, code: 0})
   })()
 })
 

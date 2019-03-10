@@ -16,7 +16,8 @@ axios.interceptors.response.use(function (response) {
     history.push('/login')
     Cookie.remove('userid')
   }
-  return res
+  const isSuccess = res.code === 0
+  return {...res, isSuccess}
 }, function (err) {
   Toast.fail('加载失败, 请稍后在试')
   return Promise.reject(err)

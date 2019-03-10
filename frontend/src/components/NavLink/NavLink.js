@@ -2,7 +2,9 @@ import React from 'react'
 import { TabBar } from 'antd-mobile'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
+import {connect} from 'react-redux'
 
+@connect(state => state.chat)
 @withRouter
 export default class extends React.Component {
     static propTypes = {
@@ -15,6 +17,7 @@ export default class extends React.Component {
             <TabBar>
                 {routerList.map(({ path, text, icon, hide }) => (
                     <TabBar.Item
+                        badge={path === '/msg' ? this.props.read : 0}
                         title={text}
                         key={text}
                         icon={{uri: require(`./img/${icon}.png`)}}

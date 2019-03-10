@@ -7,6 +7,7 @@ import Boss from '@/containers/Boss/Boss'
 import My from '@/containers/My/My'
 import GeniusList from '@/components/GeniusList/GeniusList'
 import BossList from '@/components/BossList/BossList'
+import {getChatMsgList, receiveMsg} from '@/reducers/chat'
 
 function Msg(){
 	return <h2>消息列表页面</h2>
@@ -14,11 +15,19 @@ function Msg(){
 
 @withRouter
 @connect(
-	state => state
+	state => state,
+	{getChatMsgList, receiveMsg}
 )
 export default class extends React.Component {
+	constructor(props) {
+		super(props)
+	}
+	componentDidMount() {
+		this.props.getChatMsgList()
+		this.props.receiveMsg()
+	}
     render() {
-        const user = this.props.user
+		const user = this.props.user
         const navList = [
 			{
 				path:'/boss',

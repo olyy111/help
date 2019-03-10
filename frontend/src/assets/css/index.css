@@ -39,3 +39,7 @@
 	bottom: 0;
 	z-index: 10;
 }
+
+.chat-page .chat-me .am-list-content{
+	text-align: right;
+}

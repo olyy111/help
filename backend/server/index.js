@@ -5,7 +5,7 @@ const userRouter = require('./user')
 const { getModel } = require('./models')
 const User = getModel('user')
 const Chat = getModel('chat')
-
+Chat.deleteMany({})
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
