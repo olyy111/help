@@ -45,11 +45,11 @@ export function sendMsg(data) {
 }
 
 export function getChatMsgList() {
-    return dispatch => {
+    return (dispatch, getState) => {
         fetchChatMsgList()
             .then(({isSuccess, data}) => {
-                console.log(isSuccess)
                 if (isSuccess) {
+                    const myid = getState().user._id
                     dispatch(msgList(data))
                 }
             })

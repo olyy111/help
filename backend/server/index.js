@@ -5,7 +5,6 @@ const userRouter = require('./user')
 const { getModel } = require('./models')
 const User = getModel('user')
 const Chat = getModel('chat')
-Chat.deleteMany({})
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -13,7 +12,7 @@ io.on('connection', socket => {
   console.log('user login')
   socket.on('sendMsg', data => {
     const {from, to, content} = data
-    const chatId = [from, to].join('-')
+    const chatId = [from, to].sort().join('-')
     Chat.create({chatId, from, to, content})
       .then(doc => {
         console.log(doc)
