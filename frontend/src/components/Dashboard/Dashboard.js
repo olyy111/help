@@ -7,11 +7,8 @@ import Boss from '@/containers/Boss/Boss'
 import My from '@/containers/My/My'
 import GeniusList from '@/components/GeniusList/GeniusList'
 import BossList from '@/components/BossList/BossList'
+import Msg from '@/components/Msg/Msg'
 import {getChatMsgList, receiveMsg} from '@/reducers/chat'
-
-function Msg(){
-	return <h2>消息列表页面</h2>
-}
 
 @withRouter
 @connect(

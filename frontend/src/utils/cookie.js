@@ -11,3 +11,7 @@ export function isAuth () {
 export function setUserIdCookie(id) {
   Cookies.set('userid', id)
 }
+
+export function getUserId() {
+  return Cookies.get('userid')
+}
