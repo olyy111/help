@@ -16,7 +16,8 @@ io.on('connection', socket => {
     Chat.create({chatId, from, to, content})
       .then(doc => {
         console.log(doc)
-        io.emit('receiveMsg', doc)
+        const {content, createTime, read, chatId, from, to, _id} = doc
+        io.emit('receiveMsg', {content, createTime, read, chatId, from, to, id: _id})
       })
       .catch(err => {
         res.json({code: 3, msg: '发送失败'})

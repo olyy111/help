@@ -36,10 +36,24 @@
 .stick-footer {
 	position: fixed;
 	width: 100%;
+
 	bottom: 0;
-	z-index: 10;
+	z-index: 100;
 }
 
 .chat-page .chat-me .am-list-content{
 	text-align: right;
+}
+
+.chat-page .am-grid-icon {
+	display: none;
+	margin: 0;
+}
+
+.chat-page .am-grid-text {
+	margin-top: 0;
+}
+
+.chat-page {
+	padding-bottom: 44px;
 }

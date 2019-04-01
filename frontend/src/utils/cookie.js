@@ -7,3 +7,7 @@ export function isAuth () {
   console.log(flag)
   return (flag == 1)
 }
+
+export function setUserIdCookie(id) {
+  Cookies.set('userid', id)
+}

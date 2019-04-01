@@ -71,7 +71,7 @@ router.post('/login', function (req, res) {
   ;(async () => {
     const rs = await User.findOne({user, pwd: md5(pwd)})
     if(rs){
-      res.cookie('userid', rs._id) 
+      res.cookie('userid', String(rs._id)) // 注意此处id的类型
       return res.send({data: rs, code: 0, msg: '登陆成功'}) 
     }else{
       return res.send({code: 1, msg: '用户名或者密码不正确'})
@@ -93,6 +93,7 @@ router.get('/info', function (req, res) {
       if(!doc){
         return res.json({code: 3, msg: '请求异常'})
       }
+      
       return res.json({code: 0, data: doc})
     })()
   },1000)

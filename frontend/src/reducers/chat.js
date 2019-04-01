@@ -1,5 +1,6 @@
 import io from 'socket.io-client'
 import {fetchChatMsgList} from '@/api/user'
+import Cookies from 'js-cookie'
 const socket = io(`ws://${window.location.hostname}:9999`)
 const MSG_LIST = 'MSG_LIST'
 const MSG_RECEIVE = 'MSG_RECEIVE'
@@ -14,9 +15,17 @@ const initalData = {
 export default function (state = initalData, action) {
     switch(action.type) {
         case MSG_LIST:
-            return {users: action.payload.users, msg: action.payload.msgList, read: action.payload.msgList.filter(item => !item.read).length}
+            return {
+                users: action.payload.users, 
+                msg: action.payload.msgList, 
+                read: action.payload.msgList.filter(
+                    item => !item.read && userid === item.to
+                    ).length
+                }
         case MSG_RECEIVE:
-            return {...state, msg: [...state.msg, action.payload], read: state.read + 1}
+            const userid = Cookies.get('userid')
+            const n = action.payload.to === userid ? 1 : 0
+            return {...state, msg: [...state.msg, action.payload], read: state.read + n}
         case MSG_READ:
         default:
             return state
@@ -31,7 +40,7 @@ function receive(payload) {
 }
 
 export function receiveMsg() {
-    return dispatch => {
+    return (dispatch, getState) => {
         socket.on('receiveMsg', data => {
             dispatch(receive(data))
         })
@@ -49,7 +58,6 @@ export function getChatMsgList() {
         fetchChatMsgList()
             .then(({isSuccess, data}) => {
                 if (isSuccess) {
-                    const myid = getState().user._id
                     dispatch(msgList(data))
                 }
             })

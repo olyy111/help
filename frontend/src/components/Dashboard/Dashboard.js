@@ -23,9 +23,9 @@ export default class extends React.Component {
 		super(props)
 	}
 	componentDidMount() {
-		if (this.props.chat.msg.length === 0) {
+		// if (this.props.chat.msg.length === 0) {
 			this.props.getChatMsgList()
-		}
+		// }
 	}
     render() {
 		const user = this.props.user
