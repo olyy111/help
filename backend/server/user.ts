@@ -1,9 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const model = require('./models.js')
-const User = model.getModel('user')
 const utils = require('utility')
-const Chat = model.getModel('chat')
+import {User} from './models'
+import {Chat} from './models'
 
 router.post('/update', function (req, res) {
   const body = req.body

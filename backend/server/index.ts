@@ -1,10 +1,10 @@
 const cookieParse = require('cookie-parser')
+// import cookieParse from 'cookie-parser'
 const bodyParse = require('body-parser')
 const mongoose = require('mongoose')
 const userRouter = require('./user')
-const { getModel } = require('./models')
-const User = getModel('user')
-const Chat = getModel('chat')
+import {User} from './models'
+import {Chat} from './models'
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -18,9 +18,6 @@ io.on('connection', socket => {
         console.log(doc)
         const {content, createTime, read, chatId, from, to, _id} = doc
         io.emit('receiveMsg', {content, createTime, read, chatId, from, to, id: _id})
-      })
-      .catch(err => {
-        res.json({code: 3, msg: '发送失败'})
       })
   })
 });
@@ -47,16 +44,6 @@ app.use(function (req, res, next) {
       return next()
     }
   })
-  // const doc = await User.findOne({_id: userid})
-  // console.log(doc, ++a)
-  // if(doc){
-  //   return next()
-  // }else{
-  //   return res.json({code: 3})
-  // }
-  ;(async () => {
-  })()
-  
 })
 app.use(bodyParse.json())
 

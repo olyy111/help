@@ -48,6 +48,10 @@
 	flex-basis: 10%;
 }
 
+.components-msg .am-list-extra {
+	margin-bottom: 3px;
+}
+
 .chat-page .am-grid-icon {
 	display: none;
 	margin: 0;

@@ -11,6 +11,7 @@ export default class extends React.Component {
         data: PropTypes.array.isRequired
     }
     render() {
+        console.log(this.props.read)
         const pathname = this.props.location.pathname
         const routerList = this.props.data.filter(router => !router.hide)
         return (

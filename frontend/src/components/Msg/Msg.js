@@ -27,9 +27,11 @@ export default class extends React.Component {
       const targetAvatar = userList[targetId].avatar || ''
       const unReadNum = group.filter(v => !v.read && v.to === userid).length
       return (
-        <List key={Math.random()}>
+        <List key={Math.random()} className="components-msg">
           <Item 
             thumb={require(`@/assets/imgs/avatars/${targetAvatar}.png`)}
+            arrow="horizontal"
+            onClick={() => {this.props.history.push(`/chat/${targetId}`)}}
             extra={<Badge text={unReadNum}></Badge>}
           >
             {lastItem.content}

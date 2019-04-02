@@ -13,8 +13,10 @@ const initalData = {
 }
 
 export default function (state = initalData, action) {
+    const userid = Cookies.get('userid')
     switch(action.type) {
         case MSG_LIST:
+            console.log(action.payload.msgList)
             return {
                 users: action.payload.users, 
                 msg: action.payload.msgList, 
@@ -23,7 +25,6 @@ export default function (state = initalData, action) {
                     ).length
                 }
         case MSG_RECEIVE:
-            const userid = Cookies.get('userid')
             const n = action.payload.to === userid ? 1 : 0
             return {...state, msg: [...state.msg, action.payload], read: state.read + n}
         case MSG_READ:
