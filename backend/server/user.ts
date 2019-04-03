@@ -1,10 +1,11 @@
-const express = require('express')
+import {Request, Response} from 'express'
+import express from 'express'
 const router = express.Router()
 const utils = require('utility')
 import {User} from './models'
 import {Chat} from './models'
 
-router.post('/update', function (req, res) {
+router.post('/update', function (req: Request, res: Response) {
   const body = req.body
   const id = req.cookies.userid
 
@@ -19,7 +20,7 @@ router.post('/update', function (req, res) {
   })()
 })
 
-router.post('/register', function (req, res) {
+router.post('/register', function (req: Request, res: Response) {
   const { user, pwd, type } = req.body
   ;(async () => {
     const prevData = await User.findOne({user})
@@ -39,9 +40,8 @@ router.post('/register', function (req, res) {
 //   console.log(data)
 // })
 
-router.get('/list', function (req, res) {
+router.get('/list', function (req: Request, res: Response) {
   const type = req.query.type
-
   if(!type){
     return res.json({code: 1, msg: 'type字段必须要传参'})
   }
@@ -52,7 +52,7 @@ router.get('/list', function (req, res) {
   })()
 })
 
-router.get('/chatMsgList', function (req, res) {
+router.get('/chatMsgList', function (req: Request, res: Response) {
   const { userid } = req.cookies
   ;(async() => {
     const usersRs = await User.find({})
@@ -65,7 +65,7 @@ router.get('/chatMsgList', function (req, res) {
   })()
 })
 
-router.post('/login', function (req, res) {
+router.post('/login', function (req: Request, res: Response) {
   const { user, pwd } = req.body
   ;(async () => {
     const rs = await User.findOne({user, pwd: md5(pwd)})
@@ -78,7 +78,7 @@ router.post('/login', function (req, res) {
   })()
 })
 
-router.get('/info', function (req, res) {
+router.get('/info', function (req: Request, res: Response) {
   const { userid } = req.cookies
   setTimeout(function (){
 
@@ -98,7 +98,7 @@ router.get('/info', function (req, res) {
   },1000)
 })
 
-const md5 = (str) => {
+const md5 = (str: string): string => {
   const salt = 'help_chat_!&123456'
   return utils.md5(utils.md5(str + salt))
 }
