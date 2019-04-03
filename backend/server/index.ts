@@ -2,7 +2,8 @@ const cookieParse = require('cookie-parser')
 // import cookieParse from 'cookie-parser'
 const bodyParse = require('body-parser')
 const mongoose = require('mongoose')
-const userRouter = require('./user')
+import userRouter from './user'
+import chatRouter from './chat'
 import {User} from './models'
 import {Chat} from './models'
 const app = require('express')();
@@ -48,6 +49,7 @@ app.use(function (req, res, next) {
 app.use(bodyParse.json())
 
 app.use('/user', userRouter)
+app.use('/chat', chatRouter)
 
 server.listen('9999', function () {
   console.log('node服务起在9999端口')

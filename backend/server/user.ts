@@ -1,9 +1,9 @@
 import {Request, Response} from 'express'
 import express from 'express'
-const router = express.Router()
-const utils = require('utility')
+import utils from 'utility'
 import {User} from './models'
 import {Chat} from './models'
+const router = express.Router()
 
 router.post('/update', function (req: Request, res: Response) {
   const body = req.body
@@ -103,4 +103,4 @@ const md5 = (str: string): string => {
   return utils.md5(utils.md5(str + salt))
 }
 
-module.exports = router
+export default router

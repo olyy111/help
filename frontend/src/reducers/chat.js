@@ -1,5 +1,6 @@
 import io from 'socket.io-client'
 import {fetchChatMsgList} from '@/api/user'
+import {fetchReadMsg} from '@/api/chat'
 import Cookies from 'js-cookie'
 const socket = io(`ws://${window.location.hostname}:9999`)
 const MSG_LIST = 'MSG_LIST'
@@ -19,7 +20,7 @@ export default function (state = initalData, action) {
             console.log(action.payload.msgList)
             return {
                 users: action.payload.users, 
-                msg: action.payload.msgList, 
+                msg: action.payload.msgList,
                 read: action.payload.msgList.filter(
                     item => !item.read && userid === item.to
                     ).length
@@ -40,6 +41,10 @@ function receive(payload) {
     return {type: MSG_RECEIVE, payload}
 }
 
+function msgRead(payload) {
+    return {type: MSG_READ, payload}
+}
+
 export function receiveMsg() {
     return (dispatch, getState) => {
         socket.on('receiveMsg', data => {
@@ -51,6 +56,15 @@ export function receiveMsg() {
 export function sendMsg(data) {
     return diapatch => {
         socket.emit('sendMsg', data)
+    }
+}
+
+export function readMsg({from, to}) {
+    return dispatch => {
+        fetchReadMsg({from, to})
+            .then(({isSuccess, data}) => {
+                dispatch(msgRead(data))
+            })
     }
 }
 

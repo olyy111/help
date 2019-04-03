@@ -1,14 +1,15 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {InputItem, Button, NavBar, List, Icon, Grid} from 'antd-mobile'
-import {sendMsg, getChatMsgList, receiveMsg} from '@/reducers/chat'
+import {sendMsg, getChatMsgList, receiveMsg, readMsg} from '@/reducers/chat'
 import {connect} from 'react-redux'
 import {getChatId} from '@/utils/index'
+import {getUserId} from '@/utils/cookie'
 import emojis from './emojis'
 
 @connect(
   state => state,
-  {sendMsg, getChatMsgList, receiveMsg}
+  {sendMsg, getChatMsgList, receiveMsg, readMsg}
 )
 @withRouter
 export default class extends React.Component {
@@ -19,8 +20,13 @@ export default class extends React.Component {
   componentDidMount() {
     this.props.getChatMsgList()
     this.fixCarousel()
-		// this.props.receiveMsg()
-	}
+  }
+  componentWillUnmount() {
+    this.props.readMsg({
+      from: this.props.match.params.user,
+      to: getUserId()
+    })
+  }
   handleSendMsg = () => {
     console.log(this.state.text)
     const from = this.props.user._id
@@ -39,7 +45,6 @@ export default class extends React.Component {
     const toId = this.props.match.params.user
     const users = this.props.chat.users
     const chatId = getChatId(toId, this.props.user._id)
-    console.log(chatId)
     const chatMsgs = this.props.chat.msg.filter(item => item.chatId === chatId)
 
     if (users.length === 0) {
